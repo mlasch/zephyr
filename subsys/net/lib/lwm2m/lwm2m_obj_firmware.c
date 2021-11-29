@@ -94,7 +94,8 @@ void lwm2m_firmware_set_update_state(uint8_t state)
 		}
 		break;
 	case STATE_DOWNLOADED:
-		if (update_state != STATE_DOWNLOADING &&
+		if (update_state != STATE_IDLE &&
+		    update_state != STATE_DOWNLOADING &&
 		    update_state != STATE_UPDATING) {
 			error = true;
 		}
@@ -210,7 +211,7 @@ static int package_write_cb(uint16_t obj_inst_id, uint16_t res_id,
 			return 0;
 		}
 
-		LOG_DBG("Cannot download: state = %d", state);
+		LOG_ERR("Cannot download: state = %d", state);
 		return -EPERM;
 	}
 

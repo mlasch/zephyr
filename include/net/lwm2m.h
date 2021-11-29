@@ -368,6 +368,34 @@ void lwm2m_firmware_set_write_cb(lwm2m_engine_set_data_cb_t cb);
  */
 lwm2m_engine_set_data_cb_t lwm2m_firmware_get_write_cb(void);
 
+/**
+ * @brief Set the state in the Firmware Update object
+ *
+ * @param[in] State
+ */
+void lwm2m_firmware_set_update_state(uint8_t state);
+
+/**
+ * @brief Get the state in the Firmware Update object
+ *
+ * @return State
+ */
+uint8_t lwm2m_firmware_get_update_state(void);
+
+/**
+ * @brief Set the update result in the Firmware Update object
+ *
+ * @param[in] Update result
+ */
+void lwm2m_firmware_set_update_result(uint8_t result);
+
+/**
+ * @brief Get the update result in the Firmware Update object
+ *
+ * @return Update result
+ */
+uint8_t lwm2m_firmware_get_update_result(void);
+
 #if defined(CONFIG_LWM2M_FIRMWARE_UPDATE_PULL_SUPPORT)
 /**
  * @brief Set data callback to handle firmware update execute events.
