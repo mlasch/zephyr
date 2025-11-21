@@ -8,6 +8,7 @@
 #include <nordic/nrf52840_qiaa.dtsi>
 #include <nordic/nrf52840_partition.dtsi>
 #include "boac-pinctrl.dtsi"
+#include <zephyr/dt-bindings/led/led.h>
 
 / {
 	model = "GARDENA AquaPrecise";
@@ -65,6 +66,46 @@
 	pinctrl-1 = <&uart0_sleep>;
 	pinctrl-names = "default", "sleep";
 };
+
+&i2c0 {
+	compatible = "nordic,nrf-twi";
+	status = "okay";
+	/* Arduino compatible PINs */
+	pinctrl-0 = <&i2c0_default>;
+	pinctrl-1 = <&i2c0_sleep>;
+	pinctrl-names = "default", "sleep";
+	clock-frequency = <100000>;
+
+	/* TI LP5009 LED controller for HMI connected to I2C0. */
+	lp5009@14 {
+		compatible = "ti,lp5009";
+		reg = <0x14>;
+		enable-gpios = <&gpio1 7 GPIO_ACTIVE_HIGH>;
+
+		led_0 {
+			label = "LED LP5030 0";
+			index = <0>;
+			color-mapping = <LED_COLOR_ID_RED>,
+							<LED_COLOR_ID_GREEN>,
+							<LED_COLOR_ID_BLUE>;
+		};
+		led_1 {
+			label = "LED LP5030 1";
+			index = <1>;
+			color-mapping = <LED_COLOR_ID_RED>,
+							<LED_COLOR_ID_GREEN>,
+							<LED_COLOR_ID_BLUE>;
+		};
+		led_2 {
+			label = "LED LP5030 2";
+			index = <2>;
+			color-mapping = <LED_COLOR_ID_RED>,
+							<LED_COLOR_ID_GREEN>,
+							<LED_COLOR_ID_BLUE>;
+		};
+	};
+};
+
 
 zephyr_udc0: &usbd {
 	compatible = "nordic,nrf-usbd";
